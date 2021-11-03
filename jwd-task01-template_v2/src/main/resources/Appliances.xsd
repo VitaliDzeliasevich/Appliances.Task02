@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Appliances" type="AppliancesType"/>
+  <xs:complexType name="ovenType">
+    <xs:sequence>
+      <xs:element name="POWER_CONSUMPTION">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="1000"/>
+            <xs:enumeration value="1500"/>
+            <xs:enumeration value="2000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="WEIGHT">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="10"/>
+            <xs:enumeration value="12"/>
+            <xs:enumeration value="11"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="CAPACITY">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="32"/>
+            <xs:enumeration value="33"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="DEPTH"/>
+      <xs:element name="HEIGHT">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="45.5"/>
+            <xs:enumeration value="45"/>
+            <xs:enumeration value="40"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="WIDTH">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="59.5"/>
+            <xs:enumeration value="68"/>
+            <xs:enumeration value="70"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OvensType">
+    <xs:sequence>
+      <xs:element type="ovenType" name="oven" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="laptopType">
+    <xs:sequence>
+      <xs:element name="BATTERY_CAPACITY">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="1.5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="OS">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="WINDOWS"/>
+            <xs:enumeration value="LINUX"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="MEMORY_ROM">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="4000"/>
+            <xs:enumeration value="8000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="SYSTEM_MEMORY">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="1000"/>
+            <xs:enumeration value="1500"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="CPU">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="1.2"/>
+            <xs:enumeration value="3.2"/>
+            <xs:enumeration value="2.2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="DISPLAY_INCHES">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="18"/>
+            <xs:enumeration value="22"/>
+            <xs:enumeration value="19"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LaptopsType">
+    <xs:sequence>
+      <xs:element type="laptopType" name="laptop" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="refrigeratorType">
+    <xs:sequence>
+      <xs:element name="POWER_CONSUMPTION">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="100"/>
+            <xs:enumeration value="200"/>
+            <xs:enumeration value="150"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="WEIGHT">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="20"/>
+            <xs:enumeration value="30"/>
+            <xs:enumeration value="35"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="FREEZER_CAPACITY">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="10"/>
+            <xs:enumeration value="15"/>
+            <xs:enumeration value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="OVERALL_CAPACITY">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="300"/>
+            <xs:enumeration value="350.5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="HEIGHT">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="200"/>
+            <xs:enumeration value="180"/>
+            <xs:enumeration value="250"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="WIDTH">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="70"/>
+            <xs:enumeration value="80"/>
+            <xs:enumeration value="75"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RefrigeratorsType">
+    <xs:sequence>
+      <xs:element type="refrigeratorType" name="refrigerator" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="vacuumcleanerType">
+    <xs:sequence>
+      <xs:element name="POWER_CONSUMPTION">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="100"/>
+            <xs:enumeration value="110"/>
+            <xs:enumeration value="90"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="FILTER_TYPE">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="A"/>
+            <xs:enumeration value="B"/>
+            <xs:enumeration value="C"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="BAG_TYPE">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="A2"/>
+            <xs:enumeration value="AA-89"/>
+            <xs:enumeration value="XX00"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="WAND_TYPE">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="ALL-IN-ONE"/>
+            <xs:enumeration value="all-in-one"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="MOTOR_SPEED_REGULATION">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="3000"/>
+            <xs:enumeration value="2900"/>
+            <xs:enumeration value="2950"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="CLEANING_WIDTH">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="20"/>
+            <xs:enumeration value="25"/>
+            <xs:enumeration value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VacuumCleanersType">
+    <xs:sequence>
+      <xs:element type="vacuumcleanerType" name="vacuumcleaner" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tabletpcType">
+    <xs:sequence>
+      <xs:element name="BATTERY_CAPACITY">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="DISPLAY_INCHES">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="14"/>
+            <xs:enumeration value="15"/>
+            <xs:enumeration value="16"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="MEMORY_ROM">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="8000"/>
+            <xs:enumeration value="16000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="FLASH_MEMORY_CAPACITY">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="6"/>
+            <xs:enumeration value="8"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="COLOR">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="BLUE"/>
+            <xs:enumeration value="RED"/>
+            <xs:enumeration value="GREEN"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TabletPCsType">
+    <xs:sequence>
+      <xs:element type="tabletpcType" name="tabletpc" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="speakersType">
+    <xs:sequence>
+      <xs:element name="POWER_CONSUMPTION">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="15"/>
+            <xs:enumeration value="20"/>
+            <xs:enumeration value="17"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="NUMBER_OF_SPEAKERS">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="FREQUENCY_RANGE">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="2-4"/>
+            <xs:enumeration value="3-4"/>
+            <xs:enumeration value="2-3.5"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="CORD_LENGTH">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SpeakerssType">
+    <xs:sequence>
+      <xs:element type="speakersType" name="speakers" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AppliancesType">
+    <xs:sequence>
+      <xs:element type="OvensType" name="Ovens"/>
+      <xs:element type="LaptopsType" name="Laptops"/>
+      <xs:element type="RefrigeratorsType" name="Refrigerators"/>
+      <xs:element type="VacuumCleanersType" name="VacuumCleaners"/>
+      <xs:element type="TabletPCsType" name="TabletPCs"/>
+      <xs:element type="SpeakerssType" name="Speakerss"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
