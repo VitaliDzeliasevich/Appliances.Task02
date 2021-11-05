@@ -1,58 +1,61 @@
 package by.tc.task01.service.validation;
 
 import by.tc.task01.entity.*;
+import by.tc.task01.service.exception.ServiceException;
 
 public class AppValidator {
-    public static boolean creatingValidator(Appliance appliance) {
+    public static void validate(Appliance appliance) throws ServiceException {
+        boolean valid = false;
+        String message = null;
         if (appliance instanceof Laptop) {
-            if (isValidate(appliance.getBatteryCapacity()) && isValidate(appliance.getOS())
-                    && isValidate(appliance.getMemoryRom()) && isValidate(appliance.getSystemMemory()) &&
-                    isValidate(appliance.getCPU()) && isValidate(appliance.getDisplayInches())) {
-                return true;
-            } else throw new RuntimeException("INVALID LAPTOP CHARACTERISTICS");
+            if (isValid(appliance.getBatteryCapacity()) && isValid(appliance.getOS())
+                    && isValid(appliance.getMemoryRom()) && isValid(appliance.getSystemMemory()) &&
+                    isValid(appliance.getCPU()) && isValid(appliance.getDisplayInches())) {
+                valid = true;
+            } else message = "INVALID LAPTOP CHARACTERISTICS";
         } else if (appliance instanceof Oven) {
-            if (isValidate(appliance.getPowerConsumption()) && isValidate(appliance.getWeight())
-                    && isValidate(appliance.getCapacity()) && isValidate(appliance.getDepth()) &&
-                    isValidate(appliance.getHeight()) && isValidate(appliance.getWeight())) {
-                return true;
-            } else throw new RuntimeException("INVALID OVEN CHARACTERISTICS");
+            if (isValid(appliance.getPowerConsumption()) && isValid(appliance.getWeight())
+                    && isValid(appliance.getCapacity()) && isValid(appliance.getDepth()) &&
+                    isValid(appliance.getHeight()) && isValid(appliance.getWeight())) {
+                valid = true;
+            } else message = "INVALID OVEN CHARACTERISTICS";
         } else if (appliance instanceof Refrigerator) {
-            if (isValidate(appliance.getPowerConsumption()) && isValidate(appliance.getWeight())
-                    && isValidate(appliance.getFreezerCapacity()) && isValidate(appliance.getOverallCapacity()) &&
-                    isValidate(appliance.getHeight()) && isValidate(appliance.getWeight())) {
-                return true;
-            } else throw new RuntimeException("INVALID REFRIGERATOR CHARACTERISTICS");
+            if (isValid(appliance.getPowerConsumption()) && isValid(appliance.getWeight())
+                    && isValid(appliance.getFreezerCapacity()) && isValid(appliance.getOverallCapacity()) &&
+                    isValid(appliance.getHeight()) && isValid(appliance.getWeight())) {
+                valid = true;
+            } else message = "INVALID REFRIGERATOR CHARACTERISTICS";
         } else if (appliance instanceof Speakers) {
-            if (isValidate(appliance.getPowerConsumption()) && isValidate(appliance.getNumberOfSpeakers())
-                    && isValidate(appliance.getCordLength()) && isValidate(appliance.getFrequencyRange())) {
-                return true;
-            } else throw new RuntimeException("INVALID SPEAKERS CHARACTERISTICS");
-        }
-        else if (appliance instanceof TabletPC) {
-            if (isValidate(appliance.getBatteryCapacity()) && isValidate(appliance.getDisplayInches())
-                    && isValidate(appliance.getMemoryRom()) && isValidate(appliance.getFlashMemoryCapacity()) &&
-                    isValidate(appliance.getColor())) {
-                return true;
-            } else throw new RuntimeException("INVALID TABLET_PC CHARACTERISTICS");
+            if (isValid(appliance.getPowerConsumption()) && isValid(appliance.getNumberOfSpeakers())
+                    && isValid(appliance.getCordLength()) && isValid(appliance.getFrequencyRange())) {
+                valid = true;
+            } else message = "INVALID SPEAKERS CHARACTERISTICS";
+        } else if (appliance instanceof TabletPC) {
+            if (isValid(appliance.getBatteryCapacity()) && isValid(appliance.getDisplayInches())
+                    && isValid(appliance.getMemoryRom()) && isValid(appliance.getFlashMemoryCapacity()) &&
+                    isValid(appliance.getColor())) {
+                valid = true;
+            } else message = "INVALID TABLET_PC CHARACTERISTICS";
         } else if (appliance instanceof VacuumCleaner) {
-            if (isValidate(appliance.getPowerConsumption()) && isValidate(appliance.getMotorSpeedRegulation())
-                    && isValidate(appliance.getCleaningWidth()) && isValidate(appliance.getFilterType()) &&
-                    isValidate(appliance.getWandType()) && isValidate(appliance.getBagType())) {
-                return true;
-            } else throw new RuntimeException("INVALID VACUUM_CLEANER CHARACTERISTICS");
+            if (isValid(appliance.getPowerConsumption()) && isValid(appliance.getMotorSpeedRegulation())
+                    && isValid(appliance.getCleaningWidth()) && isValid(appliance.getFilterType()) &&
+                    isValid(appliance.getWandType()) && isValid(appliance.getBagType())) {
+                valid = true;
+            } else message = "INVALID VACUUM_CLEANER CHARACTERISTICS";
         }
-        return false;
+        if (!valid)
+            throw new ServiceException(message);
     }
 
-    private static boolean isValidate(String field) {
-        return !field.equals("");
+    private static boolean isValid(String field) {
+        return field != null && !field.isEmpty();
     }
 
-    private static   boolean isValidate(int field) {
-        return !(field<=0);
+    private static boolean isValid(int field) {
+        return !(field <= 0);
     }
 
-    private static   boolean isValidate(double field) {
-        return !(field<=0);
+    private static boolean isValid(double field) {
+        return !(field <= 0);
     }
 }

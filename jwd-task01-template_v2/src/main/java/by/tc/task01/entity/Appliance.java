@@ -1,8 +1,9 @@
 package by.tc.task01.entity;
 
 
+import java.io.Serializable;
 
-public abstract class Appliance {
+public abstract class Appliance implements Serializable {
     private double batteryCapacity;
     private String OS;
     private int memoryRom;

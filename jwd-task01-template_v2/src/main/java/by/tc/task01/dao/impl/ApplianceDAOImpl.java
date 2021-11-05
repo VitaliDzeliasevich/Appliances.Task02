@@ -4,7 +4,8 @@ import by.tc.task01.dao.ApplianceDAO;
 import by.tc.task01.dao.command.AppAddControl;
 import by.tc.task01.dao.command.AppGroupSearchControl;
 import by.tc.task01.dao.command.adding.*;
-import by.tc.task01.dao.command.searching.*;
+import by.tc.task01.dao.command.searching.XMLAppSearcher;
+import by.tc.task01.dao.exception.DAOException;
 import by.tc.task01.dao.util.DAOUtil;
 import by.tc.task01.entity.*;
 import by.tc.task01.entity.criteria.Criteria;
@@ -20,7 +21,9 @@ import static by.tc.task01.dao.util.DAOUtil.*;
 
 public class ApplianceDAOImpl implements ApplianceDAO {
 
+	private String message = null;
 	private static  String filePath;
+	private static  String fileName = "App.xml";
 	private static Document document;
 	private static final String OVEN = "oven";
 	private static final String LAPTOP = "laptop";
@@ -30,60 +33,33 @@ public class ApplianceDAOImpl implements ApplianceDAO {
 	private static final String VACUUM_CLEANER = "vacuumcleaner";
 	private static final String ALL_GROUP_SEARCH = "AllGroupSearch";
 
-	public List<Appliance> find(Criteria criteria) { //SEARCHING IN XML
-		filePath = DAOUtil.getXMLPath("Appliances.xml");
-		document = getDoc(filePath);
+	public List<Appliance> find(Criteria criteria) throws DAOException{					//SEARCHING IN XML
+		filePath = DAOUtil.getXMLPath(fileName);										//GETTING FILEPATH BY FILENAME
+		document = getDoc(filePath); 													//GETTING DOC
 		String groupSearchName = criteria.getGroupSearchName();
 		List<Appliance> applianceList;
 
-		XMLAppSearcher searcherXML = new XMLAppSearcher();
-		SearchCommand ovenSearcher = new OvenSearcherCommand(searcherXML);
-		SearchCommand laptopSearcher = new LaptopSearcherCommand(searcherXML);
-		SearchCommand refrigeratorSearcher = new RefrigeratorSearcherCommand(searcherXML);
-		SearchCommand speakersSearcher = new SpeakersSearcherCommand(searcherXML);
-		SearchCommand tabletSearcher = new TabletPCSearcherCommand(searcherXML);
-		SearchCommand vacuumSearcher = new VacuumCleanerSearcherCommand(searcherXML);
-		AppGroupSearchControl searchControl = new AppGroupSearchControl(ovenSearcher, laptopSearcher,
-				                                 refrigeratorSearcher, speakersSearcher,tabletSearcher,vacuumSearcher);
-
 		if (criteria.getCriteriaMap().isEmpty()) { //SEARCHING WITHOUT CRITERIA (RETURNING ALL APPS FROM DEFINITE GROUP)
-			applianceList = findByGroup(document, searchControl, groupSearchName);
+			applianceList = findByGroup(document, groupSearchName);
 		} else {
 			List<Object> listKeys = convertKeysToList(criteria.getCriteriaMap());
 			List<Object> listValues = new ArrayList<>(criteria.getCriteriaMap().values());
-			if (!groupSearchName.equals(ALL_GROUP_SEARCH)) { //SEARCHING BY CRITERIA IN DEFINITE APP GROUP
-				applianceList = findByGroupAndCriteria(document, listKeys, listValues, searchControl, groupSearchName);
-			} else { // SEARCHING ONLY BY CRITERIA (WITHOUT DEFINITE APP GROUP)
-				applianceList = findByCriteria(document, listKeys, listValues, searchControl);
+			if (!groupSearchName.equals(ALL_GROUP_SEARCH)) { 			//SEARCHING BY CRITERIA IN DEFINITE APP GROUP
+				applianceList = findByGroupAndCriteria(document, listKeys, listValues, groupSearchName);
+			} else { 										// SEARCHING ONLY BY CRITERIA (WITHOUT DEFINITE APP GROUP)
+				applianceList = findByCriteria(document, listKeys, listValues);
 			}
 		}
 		return applianceList;
-
 	}
 
-	public void add(Appliance appliance) { //ADDING APP TO THE XML
-			document = getDoc(filePath);
+	public void add(Appliance appliance) throws DAOException {
+		filePath = DAOUtil.getXMLPath(fileName);
+		document = getDoc(filePath);
+		XMLAppAdder appAdder = XMLAppAdder.getInstance();
+		AppAddControl addControl = new AppAddControl(appAdder);
 
-			XMLAppAdder appAdder = new XMLAppAdder();
-			AddCommand ovenAdder = new OvenAddCommand(appAdder);
-			AddCommand laptopAdder = new LaptopAddCommand(appAdder);
-			AddCommand refrigeratorAdder = new RefrigeratorAddCommand(appAdder);
-			AddCommand speakersAdder = new SpeakersAddCommand(appAdder);
-			AddCommand tabletpcAdder = new TabletPCAddCommand(appAdder);
-			AddCommand vacuumCleanerAdder = new VacuumCleanerAddCommand(appAdder);
-			AppAddControl addControl = new AppAddControl(laptopAdder,ovenAdder,refrigeratorAdder,speakersAdder,
-					tabletpcAdder,vacuumCleanerAdder);
-
-			String appGroupName = appliance.getClass().getSimpleName().toLowerCase();
-
-		switch (appGroupName) {
-			case OVEN -> addControl.addOven(appliance, document);
-			case LAPTOP -> addControl.addLaptop(appliance, document);
-			case REFRIGERATOR -> addControl.addRefrigerator(appliance, document);
-			case SPEAKERS -> addControl.addSpeakers(appliance, document);
-			case TABLET_PC -> addControl.addTabletPC(appliance, document);
-			case VACUUM_CLEANER -> addControl.addVacuumCleaner(appliance, document);
-		}
+			addControl.add(appliance, document);
 
 		document.getDocumentElement().normalize();
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -91,14 +67,16 @@ public class ApplianceDAOImpl implements ApplianceDAO {
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.transform(new DOMSource(document), new StreamResult(new File(filePath)));
 		} catch (TransformerConfigurationException e) {
-			System.out.println("XML FILE UPDATING ERROR");
+			throw new DAOException("XML FILE UPDATING ERROR. CONFIGURATION ERROR");
 		} catch (TransformerException e) {
-			System.out.println("XML FILE UPDATING ERROR");;
+			throw new DAOException("XML FILE UPDATING ERROR. CONFIGURATION ERROR");
 		}
 	}
 
 	private List<Appliance> findByGroupAndCriteria(Document document, List<Object> listKeys, List<Object> listValues,
-										   AppGroupSearchControl searchControl, String groupSearchName) {
+										   String groupSearchName) {
+		XMLAppSearcher searcherXML = XMLAppSearcher.getInstance();
+		AppGroupSearchControl searchControl = new AppGroupSearchControl(searcherXML);
 		List<Appliance> applianceList = new ArrayList<>();
 		switch (groupSearchName) {
 			case OVEN -> applianceList.addAll(searchControl.searchOven(document, listKeys, listValues));
@@ -112,8 +90,10 @@ public class ApplianceDAOImpl implements ApplianceDAO {
 	}
 
 	private List<Appliance> findByCriteria(Document document, List<Object> listKeys,
-											List<Object> listValues, AppGroupSearchControl searchControl) {
+											List<Object> listValues) {
 		List<Appliance> applianceList = new ArrayList<>();
+		XMLAppSearcher searcherXML = XMLAppSearcher.getInstance();
+		AppGroupSearchControl searchControl = new AppGroupSearchControl(searcherXML);
 
 		applianceList.addAll(searchControl.searchOven(document, listKeys, listValues));
 		applianceList.addAll(searchControl.searchLaptop(document, listKeys, listValues));
@@ -125,16 +105,18 @@ public class ApplianceDAOImpl implements ApplianceDAO {
 		return applianceList;
 	}
 
-	private List<Appliance> findByGroup(Document document, AppGroupSearchControl searchControl, String groupSearchName) {
+	private List<Appliance> findByGroup(Document document, String groupSearchName) {
 		List<Appliance> applianceList = new ArrayList<>();
+		XMLAppSearcher searcherXML = XMLAppSearcher.getInstance();
+		AppGroupSearchControl searchControl = new AppGroupSearchControl(searcherXML);
 
 		switch (groupSearchName) {
-			case OVEN -> applianceList.addAll(searchControl.searchOven(document, null, null));
-			case LAPTOP -> applianceList.addAll(searchControl.searchLaptop(document, null, null));
-			case REFRIGERATOR -> applianceList.addAll(searchControl.searchRefrigerator(document, null, null));
-			case SPEAKERS -> applianceList.addAll(searchControl.searchSpeakers(document, null, null));
-			case TABLET_PC -> applianceList.addAll(searchControl.searchTabletPC(document, null, null));
-			case VACUUM_CLEANER -> applianceList.addAll(searchControl.searchVacuumCleaner(document, null, null));
+			case OVEN -> applianceList.addAll(searchControl.searchOven(document));
+			case LAPTOP -> applianceList.addAll(searchControl.searchLaptop(document));
+			case REFRIGERATOR -> applianceList.addAll(searchControl.searchRefrigerator(document));
+			case SPEAKERS -> applianceList.addAll(searchControl.searchSpeakers(document));
+			case TABLET_PC -> applianceList.addAll(searchControl.searchTabletPC(document));
+			case VACUUM_CLEANER -> applianceList.addAll(searchControl.searchVacuumCleaner(document));
 		}
 
 		return applianceList;

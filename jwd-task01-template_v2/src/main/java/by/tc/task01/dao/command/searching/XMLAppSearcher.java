@@ -12,10 +12,16 @@ import static by.tc.task01.dao.util.DAOUtil.getTagValue;
 
 public class XMLAppSearcher {
 
-    public XMLAppSearcher() {
+    private XMLAppSearcher() {
     }
 
-    List<Appliance> searchOven(Document document, List<Object> listKeys, List<Object> listValues) {
+    private static final XMLAppSearcher xmlAppSearcher= new XMLAppSearcher();
+
+    public static   XMLAppSearcher getInstance() {
+        return xmlAppSearcher;
+    }
+
+    public List<Appliance> searchOven(Document document, List<Object> listKeys, List<Object> listValues) {
         Oven oven;
         List<Appliance> ovens = new ArrayList<>();
         NodeList nodeList = document.getElementsByTagName("oven");
@@ -30,7 +36,7 @@ public class XMLAppSearcher {
                 double ELEMENT_HEIGHT = Double.parseDouble(getTagValue("HEIGHT", element));
                 double ELEMENT_WEIGHT = Double.parseDouble(getTagValue("WEIGHT", element));
                 double ELEMENT_WIDTH = Double.parseDouble(getTagValue("WIDTH", element));
-                if (listKeys == null || listValues == null) {
+                if (listKeys == null || listValues == null) { //SEARCHING WITHOUT CRITERIA
                     oven = new Oven();
                     oven.setPowerConsumption((int) ELEMENT_POWER_CONSUMPTION);
                     oven.setCapacity((int) ELEMENT_CAPACITY);
@@ -41,7 +47,7 @@ public class XMLAppSearcher {
                     ovens.add(oven);
                 } else {
                     int k = 0;
-                    while (k < listKeys.size()) {
+                    while (k < listKeys.size()) { //SEARCHING BY CRITERIA
                         if (((listKeys.get(k).equals("POWER_CONSUMPTION") && listValues.get(k).equals(ELEMENT_POWER_CONSUMPTION)) ||
                                 (listKeys.get(k).equals("CAPACITY") && listValues.get(k).equals(ELEMENT_CAPACITY)) ||
                                 (listKeys.get(k).equals("DEPTH") && listValues.get(k).equals(ELEMENT_DEPTH)) ||
@@ -69,7 +75,7 @@ public class XMLAppSearcher {
         return ovens;
     }
 
-    List<Appliance> searchLaptop(Document document, List<Object> listKeys, List<Object> listValues) {
+    public List<Appliance> searchLaptop(Document document, List<Object> listKeys, List<Object> listValues) {
         Laptop laptop;
         List<Appliance> laptops = new ArrayList<>();
         NodeList nodeList = document.getElementsByTagName("laptop");
@@ -122,7 +128,7 @@ public class XMLAppSearcher {
 
     }
 
-    List<Appliance> searchRefrigerator(Document document, List<Object> listKeys, List<Object> listValues) {
+    public List<Appliance> searchRefrigerator(Document document, List<Object> listKeys, List<Object> listValues) {
         Refrigerator refrigerator;
         List<Appliance> refrigerators = new ArrayList<>();
         NodeList nodeList = document.getElementsByTagName("refrigerator");
@@ -174,7 +180,7 @@ public class XMLAppSearcher {
         return refrigerators;
     }
 
-    List<Appliance> searchSpeakers(Document document, List<Object> listKeys, List<Object> listValues) {
+    public List<Appliance> searchSpeakers(Document document, List<Object> listKeys, List<Object> listValues) {
         Speakers speakers;
         List<Appliance> speakerss = new ArrayList<>();
         NodeList nodeList = document.getElementsByTagName("speakers");
@@ -219,7 +225,7 @@ public class XMLAppSearcher {
     }
 
 
-        List<Appliance> searchTabletPC (Document document, List < Object > listKeys, List < Object > listValues){
+    public List<Appliance> searchTabletPC (Document document, List < Object > listKeys, List < Object > listValues){
             TabletPC tablet;
             List<Appliance> tablets = new ArrayList<>();
             NodeList nodeList = document.getElementsByTagName("tabletpc");
@@ -267,7 +273,7 @@ public class XMLAppSearcher {
             return tablets;
         }
 
-        List<Appliance> searchVacuumCleaner (Document document, List < Object > listKeys, List < Object > listValues){
+    public List<Appliance> searchVacuumCleaner (Document document, List < Object > listKeys, List < Object > listValues){
             VacuumCleaner vacuumCleaner;
             List<Appliance> cleaners = new ArrayList<>();
 

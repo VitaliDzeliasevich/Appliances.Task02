@@ -6,8 +6,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
  public class XMLAppAdder {
-      void addOven(Appliance app, Document document) {
 
+     private XMLAppAdder() {}
+
+     private static final XMLAppAdder xmlAppAdder = new XMLAppAdder();
+
+     public static XMLAppAdder getInstance() {
+         return xmlAppAdder;
+     }
+
+      public void addOven(Appliance app, Document document) {
 
               NodeList nodeList = document.getElementsByTagName("Ovens");
 
@@ -38,12 +46,11 @@ import org.w3c.dom.NodeList;
               oven.appendChild(width);
 
               nodeList.item(0).appendChild(oven);
-
     }
 
-    void addLaptop(Appliance app, Document document) {
-        NodeList nodeList = document.getElementsByTagName("Laptops");
+    public void addLaptop(Appliance app, Document document) {
 
+        NodeList nodeList = document.getElementsByTagName("Laptops");
         Element laptop = document.createElement("laptop");
 
         Element batteryCapacity = document.createElement("BATTERY_CAPACITY");
@@ -74,7 +81,7 @@ import org.w3c.dom.NodeList;
         nodeList.item(0).appendChild(laptop);
     }
 
-    void addRefrigerator(Appliance app, Document document) {
+    public void addRefrigerator(Appliance app, Document document) {
         NodeList nodeList = document.getElementsByTagName("Refrigerators");
 
         Element refrigerator = document.createElement("refrigerator");
@@ -106,7 +113,7 @@ import org.w3c.dom.NodeList;
         nodeList.item(0).appendChild(refrigerator);
     }
 
-    void addSpeakers(Appliance app, Document document) {
+    public void addSpeakers(Appliance app, Document document) {
         NodeList nodeList = document.getElementsByTagName("Speakerss");
 
         Element speakers = document.createElement("speakers");
@@ -131,7 +138,7 @@ import org.w3c.dom.NodeList;
         nodeList.item(0).appendChild(speakers);
     }
 
-    void addTabletPC(Appliance app, Document document) {
+    public void addTabletPC(Appliance app, Document document) {
         NodeList nodeList = document.getElementsByTagName("TabletPCs");
 
         Element tabletpc = document.createElement("tabletpc");
@@ -160,7 +167,7 @@ import org.w3c.dom.NodeList;
         nodeList.item(0).appendChild(tabletpc);
     }
 
-    void addVacuumCleaner(Appliance app, Document document) {
+    public void addVacuumCleaner(Appliance app, Document document) {
         NodeList nodeList = document.getElementsByTagName("VacuumCleaners");
 
         Element vacuumcleaner = document.createElement("vacuumcleaner");
@@ -191,12 +198,4 @@ import org.w3c.dom.NodeList;
 
         nodeList.item(0).appendChild(vacuumcleaner);
     }
-
-
-
-
-
-
-
-
 }

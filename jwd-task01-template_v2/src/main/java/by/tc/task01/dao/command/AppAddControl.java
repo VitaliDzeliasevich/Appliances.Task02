@@ -1,7 +1,8 @@
 package by.tc.task01.dao.command;
 
-import by.tc.task01.dao.command.adding.AddCommand;
-import by.tc.task01.entity.Appliance;
+import by.tc.task01.dao.command.adding.*;
+import by.tc.task01.dao.command.adding.impl.*;
+import by.tc.task01.entity.*;
 import org.w3c.dom.Document;
 
 public class AppAddControl {
@@ -12,38 +13,48 @@ public class AppAddControl {
     private final AddCommand tabletPCAddCommand;
     private final AddCommand vacuumCleanerAddCommand;
 
-    public AppAddControl(AddCommand laptopAddCommand, AddCommand ovenAddCommand,
-                         AddCommand refrigeratorAddCommand, AddCommand speakersAddCommand,
-                         AddCommand tabletPCAddCommand, AddCommand vacuumCleanerAddCommand) {
-        this.laptopAddCommand = laptopAddCommand;
-        this.ovenAddCommand = ovenAddCommand;
-        this.refrigeratorAddCommand = refrigeratorAddCommand;
-        this.speakersAddCommand = speakersAddCommand;
-        this.tabletPCAddCommand = tabletPCAddCommand;
-        this.vacuumCleanerAddCommand = vacuumCleanerAddCommand;
+    public AppAddControl(XMLAppAdder appAdder) {
+        this.laptopAddCommand = new LaptopAddCommand(appAdder);
+        this.ovenAddCommand = new OvenAddCommand(appAdder);
+        this.refrigeratorAddCommand = new RefrigeratorAddCommand(appAdder);
+        this.speakersAddCommand = new SpeakersAddCommand(appAdder);
+        this.tabletPCAddCommand = new TabletPCAddCommand(appAdder);
+        this.vacuumCleanerAddCommand = new VacuumCleanerAddCommand(appAdder);
     }
 
-    public void addOven(Appliance appliance, Document document) {
+    public void add(Appliance appliance, Document document) {
+        if (appliance instanceof Oven) {addOven(appliance,document);}
+        else if (appliance instanceof Laptop) {addLaptop(appliance,document);}
+        else if (appliance instanceof Refrigerator) {addRefrigerator(appliance,document);}
+        else if (appliance instanceof Speakers) {addSpeakers(appliance,document);}
+        else if (appliance instanceof TabletPC) {addTabletPC(appliance,document);}
+        else if (appliance instanceof VacuumCleaner) {addVacuumCleaner(appliance,document);}
+    }
+
+    private void addOven(Appliance appliance, Document document) {
         ovenAddCommand.execute(appliance,document);
     }
 
-    public void addLaptop(Appliance appliance, Document document) {
+    private void addLaptop(Appliance appliance, Document document) {
+
         laptopAddCommand.execute(appliance,document);
     }
 
-    public void addRefrigerator(Appliance appliance, Document document) {
+    private void addRefrigerator(Appliance appliance, Document document) {
         refrigeratorAddCommand.execute(appliance,document);
     }
 
-    public void addSpeakers(Appliance appliance, Document document) {
+    private void addSpeakers(Appliance appliance, Document document) {
+
         speakersAddCommand.execute(appliance,document);
     }
 
-    public void addTabletPC(Appliance appliance, Document document) {
+    private void addTabletPC(Appliance appliance, Document document) {
+
         tabletPCAddCommand.execute(appliance,document);
     }
 
-    public void addVacuumCleaner(Appliance appliance, Document document) {
+    private void addVacuumCleaner(Appliance appliance, Document document) {
         vacuumCleanerAddCommand.execute(appliance,document);
     }
 }
