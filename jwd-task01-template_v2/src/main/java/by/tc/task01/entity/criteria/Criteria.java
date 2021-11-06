@@ -21,8 +21,7 @@ public class Criteria {
 			criteria.put(searchCriteria, ((String) value).toUpperCase());
 		}
 		else if (value instanceof Integer) {
-			int integerValue = (Integer) value;
-			double doubleValue =  integerValue;
+			double doubleValue = (int) (Integer) value;
 
 			criteria.put(searchCriteria, doubleValue);
 		}

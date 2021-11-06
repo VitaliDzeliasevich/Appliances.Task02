@@ -8,10 +8,14 @@ public class PrintApplianceInfo {
 
     public static void print(List<Appliance> appliance) {
         if (appliance.isEmpty()) {
-            System.out.println("NO APPLIANCE IS FOUND ON YOUR REQUEST.");
+            System.out.println("NO APP IS FOUND ON YOUR REQUEST.");
         } else {
-            for (Appliance app : appliance) {
-                System.out.println(app.toString());
+            int numberOfApps = appliance.size();
+            if (numberOfApps==1) { System.out.println("1 APP IS FOUND ON YOUR REQUEST:"); }
+            else { System.out.println(numberOfApps + " APPS ARE FOUND ON YOUR REQUEST:");
+                for (Appliance app : appliance) {
+                    System.out.println(app.toString());
+                }
             }
         }
     }

@@ -10,6 +10,12 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -19,19 +25,20 @@ public final class DAOUtil {
 
     private DAOUtil() {}
 
-    public static String getXMLPath(String fileName) throws DAOException{
+    public static String getXMLPath(String fileName) {
         final URL fileURL = DAOUtil.class.getClassLoader().getResource(fileName);
-        String XMLPath=null;
-        try {
-            XMLPath = fileURL.getPath();
-        } catch (NullPointerException e) {
-            throw new DAOException("XMLFILE IS NULL. CHECK FILENAME");
+        String XMLPath;
+        if (fileURL==null) {
+            throw new RuntimeException("FILE IS NOT FOUND. CHECK FILENAME!");
+        }
+        else {
+             XMLPath = fileURL.getPath();
         }
         return XMLPath;
     }
 
-    public static Document getDoc(String XMLpath) throws DAOException{
-        File fileXML = new File(XMLpath);
+    public static Document getDocFromXML(String XMLPath) throws DAOException{
+        File fileXML = new File(XMLPath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
         Document document = null;
@@ -41,7 +48,7 @@ public final class DAOUtil {
             document.getDocumentElement().normalize();
         }
         catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new DAOException("DOCUMENT PARSING EXCEPTION");
+            throw new DAOException("DOCUMENT PARSING EXCEPTION:   " + e);
         }
         return document;
     }
@@ -52,10 +59,18 @@ public final class DAOUtil {
         return node.getNodeValue();
     }
 
-    public static List<Object> convertKeysToList(Map<String, Object> map) {
-        Set<String> keys = map.keySet();
-        Object[] arrayKeys = keys.toArray();
-        return new ArrayList<>(Arrays.asList(arrayKeys));
+
+    public static void updateXMLFile(Document document, String filePath) throws DAOException{
+        document.getDocumentElement().normalize();
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        try {
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.transform(new DOMSource(document), new StreamResult(new File(filePath)));
+        } catch (TransformerConfigurationException e) {
+            throw new DAOException("XML FILE UPDATING ERROR. CONFIGURATION ERROR:  " + e);
+        } catch (TransformerException e) {
+            throw new DAOException("XML FILE UPDATING ERROR. CONFIGURATION ERROR:  " + e);
+        }
     }
 
 }

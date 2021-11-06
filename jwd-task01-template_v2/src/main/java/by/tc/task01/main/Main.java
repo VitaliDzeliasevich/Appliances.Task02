@@ -23,7 +23,7 @@ public class Main {
 //		Appliance oven = new Oven(100,100,100,100,100,100); // ADDING INFO TO XML
 //		service.add(oven);
 
-		////////////////////////////////////
+		/////////////////////////////
 
 		Criteria criteria = new Criteria(); //SEARCHING IN ALL GROUPS BY CRITERIA
 		criteria.add(SearchCriteria.Appliance.POWER_CONSUMPTION.toString(), 100);
@@ -32,7 +32,7 @@ public class Main {
 
 		PrintApplianceInfo.print(appliance);
 		System.out.println("////////////");
-		///////////////////////////////////
+		/////////////////////////////
 
 		criteria = new Criteria(SearchCriteria.Oven.class.getSimpleName()); // SEARCHING IN DEFINITE GROUP BY CRITERIA
 		criteria.add(SearchCriteria.Oven.CAPACITY.toString(), 33);
@@ -43,59 +43,59 @@ public class Main {
 		PrintApplianceInfo.print(appliance);
 		System.out.println("////////////");
 
-		////////////////////////////////
-
-		criteria = new Criteria(SearchCriteria.Laptop.class.getSimpleName()); // SEARCHING ONLY BY GROUP (WITHOUT CRITERIA)
-
-		appliance = service.find(criteria);
-
-		PrintApplianceInfo.print(appliance);
-		System.out.println("////////////");
-
 		/////////////////////////////
-
-		criteria = new Criteria(SearchCriteria.Refrigerator.class.getSimpleName());
-		criteria.add(SearchCriteria.Refrigerator.HEIGHT.toString(), 200);
-		criteria.add(SearchCriteria.Refrigerator.WIDTH.toString(), 70);
-
-		appliance = service.find(criteria);
-
-		PrintApplianceInfo.print(appliance);
-		System.out.println("////////////");
-
-		/////////////////////////////
-
-		criteria = new Criteria(SearchCriteria.Speakers.class.getSimpleName());
-		criteria.add(SearchCriteria.Speakers.NUMBER_OF_SPEAKERS.toString(), 2);
-		criteria.add(SearchCriteria.Speakers.CORD_LENGTH.toString(), 2);
-
-		appliance = service.find(criteria);
-
-		PrintApplianceInfo.print(appliance);
-		System.out.println("////////////");
-
-		////////////////////////////////////////////////////////////////// 6666666
-
-
-		Criteria criteriaTabletPC = new Criteria(SearchCriteria.TabletPC.class.getSimpleName());
-		criteriaTabletPC.add(SearchCriteria.TabletPC.COLOR.toString(), "red");
-		criteriaTabletPC.add(SearchCriteria.TabletPC.DISPLAY_INCHES.toString(), 15);
-		criteriaTabletPC.add(SearchCriteria.TabletPC.MEMORY_ROM.toString(), 8000);
-
-		appliance = service.find(criteriaTabletPC);// find(Object...obj)
-
-		PrintApplianceInfo.print(appliance);
-		System.out.println("////////////");
-
-		////////////////////////////////////////////////////////////////// 7777777
-
-		criteria = new Criteria(SearchCriteria.VacuumCleaner.class.getSimpleName());
-		criteria.add(SearchCriteria.VacuumCleaner.FILTER_TYPE.toString(), "d");
-		criteria.add(SearchCriteria.VacuumCleaner.WAND_TYPE.toString(), "all-in-one");
-
-		appliance = service.find(criteria);
-
-		PrintApplianceInfo.print(appliance);
+//
+//		criteria = new Criteria(SearchCriteria.Laptop.class.getSimpleName()); // SEARCHING ONLY BY GROUP (WITHOUT CRITERIA)
+//
+//		appliance = service.find(criteria);
+//
+//		PrintApplianceInfo.print(appliance);
+//		System.out.println("////////////");
+//
+//		/////////////////////////////
+//
+//		criteria = new Criteria(SearchCriteria.Refrigerator.class.getSimpleName());
+//		criteria.add(SearchCriteria.Refrigerator.HEIGHT.toString(), 200);
+//		criteria.add(SearchCriteria.Refrigerator.WIDTH.toString(), 70);
+//
+//		appliance = service.find(criteria);
+//
+//		PrintApplianceInfo.print(appliance);
+//		System.out.println("////////////");
+//
+//		/////////////////////////////
+//
+//		criteria = new Criteria(SearchCriteria.Speakers.class.getSimpleName());
+//		criteria.add(SearchCriteria.Speakers.NUMBER_OF_SPEAKERS.toString(), 2);
+//		criteria.add(SearchCriteria.Speakers.CORD_LENGTH.toString(), 2);
+//
+//		appliance = service.find(criteria);
+//
+//		PrintApplianceInfo.print(appliance);
+//		System.out.println("////////////");
+//
+//		/////////////////////////////
+//
+//
+//		Criteria criteriaTabletPC = new Criteria(SearchCriteria.TabletPC.class.getSimpleName());
+//		criteriaTabletPC.add(SearchCriteria.TabletPC.COLOR.toString(), "red");
+//		criteriaTabletPC.add(SearchCriteria.TabletPC.DISPLAY_INCHES.toString(), 15);
+//		criteriaTabletPC.add(SearchCriteria.TabletPC.MEMORY_ROM.toString(), 8000);
+//
+//		appliance = service.find(criteriaTabletPC);
+//
+//		PrintApplianceInfo.print(appliance);
+//		System.out.println("////////////");
+//
+//		/////////////////////////////
+//
+//		criteria = new Criteria(SearchCriteria.VacuumCleaner.class.getSimpleName());
+//		criteria.add(SearchCriteria.VacuumCleaner.FILTER_TYPE.toString(), "d");
+//		criteria.add(SearchCriteria.VacuumCleaner.WAND_TYPE.toString(), "all-in-one");
+//
+//		appliance = service.find(criteria);
+//
+//		PrintApplianceInfo.print(appliance);
 	}
 
 }
