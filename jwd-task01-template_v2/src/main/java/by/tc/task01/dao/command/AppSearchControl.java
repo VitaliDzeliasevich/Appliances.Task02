@@ -7,7 +7,7 @@ import org.w3c.dom.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppGroupSearchControl {
+public class AppSearchControl {
     private static final String OVEN = "oven";
     private static final String LAPTOP = "laptop";
     private static final String REFRIGERATOR = "refrigerator";
@@ -21,7 +21,7 @@ public class AppGroupSearchControl {
     private final SearchCommand searchTabletPC;
     private final SearchCommand searchVacuumCleaner;
 
-    public AppGroupSearchControl(XMLAppSearcher appSearcher) {
+    public AppSearchControl(XMLAppSearcher appSearcher) {
         this.searchOven = new OvenSearcherCommand(appSearcher);
         this.searchLaptop = new LaptopSearcherCommand(appSearcher);
         this.searchRefrigerator = new RefrigeratorSearcherCommand(appSearcher);

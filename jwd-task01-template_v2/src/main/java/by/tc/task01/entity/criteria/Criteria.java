@@ -13,7 +13,7 @@ public class Criteria {
 	}
 
 	public Criteria() {
-		this.groupSearchName = "AllGroupSearch";
+		this.groupSearchName = "allgroupsearch";
 	}
 
 	public void add(String searchCriteria, Object value) {

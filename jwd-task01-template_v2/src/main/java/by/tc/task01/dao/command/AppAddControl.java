@@ -13,13 +13,19 @@ public class AppAddControl {
     private final AddCommand tabletPCAddCommand;
     private final AddCommand vacuumCleanerAddCommand;
 
-    public AppAddControl(XMLAppAdder appAdder) {
-        this.laptopAddCommand = new LaptopAddCommand(appAdder);
-        this.ovenAddCommand = new OvenAddCommand(appAdder);
-        this.refrigeratorAddCommand = new RefrigeratorAddCommand(appAdder);
-        this.speakersAddCommand = new SpeakersAddCommand(appAdder);
-        this.tabletPCAddCommand = new TabletPCAddCommand(appAdder);
-        this.vacuumCleanerAddCommand = new VacuumCleanerAddCommand(appAdder);
+    private AppAddControl() {
+        this.laptopAddCommand = new LaptopAddCommand();
+        this.ovenAddCommand = new OvenAddCommand();
+        this.refrigeratorAddCommand = new RefrigeratorAddCommand();
+        this.speakersAddCommand = new SpeakersAddCommand();
+        this.tabletPCAddCommand = new TabletPCAddCommand();
+        this.vacuumCleanerAddCommand = new VacuumCleanerAddCommand();
+    }
+
+    private static final AppAddControl addControl = new AppAddControl();
+
+    public static AppAddControl getInstance() {
+        return addControl;
     }
 
     public void add(Appliance appliance, Document document) {

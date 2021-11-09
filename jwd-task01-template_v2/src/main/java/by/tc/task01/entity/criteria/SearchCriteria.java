@@ -2,7 +2,7 @@ package by.tc.task01.entity.criteria;
 
 public final class SearchCriteria {
 
-	public static String allGroupSearch = "AllGroupSearch";
+	public static final String ALL_GROUP_SEARCH = "allgroupsearch";
 	
 	public static enum Oven{
 		POWER_CONSUMPTION, WEIGHT, CAPACITY, DEPTH, HEIGHT, WIDTH

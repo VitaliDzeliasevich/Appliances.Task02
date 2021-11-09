@@ -14,7 +14,6 @@ import java.util.List;
 
 public class ApplianceServiceImpl implements ApplianceService {
 
-
     public List<Appliance> find(Criteria criteria) throws ServiceException {
         CriteriaValidator.validate(criteria);
 
@@ -26,7 +25,6 @@ public class ApplianceServiceImpl implements ApplianceService {
             throw new ServiceException(e.getMessage());
         }
     }
-
 
     public void add(Appliance appliance) throws ServiceException {
         AppValidator.validate(appliance);

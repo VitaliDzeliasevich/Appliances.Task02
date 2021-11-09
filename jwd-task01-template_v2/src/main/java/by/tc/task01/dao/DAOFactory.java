@@ -11,9 +11,9 @@ public final class DAOFactory {
 
 	public ApplianceDAO getApplianceDAO() {
 		return applianceDAO;
-	} // creating Object for contacting Database
+	}
 
 	public static DAOFactory getInstance() {
 		return instance;
-	} // creating factory itself (STATIC METHOD)
+	}
 }

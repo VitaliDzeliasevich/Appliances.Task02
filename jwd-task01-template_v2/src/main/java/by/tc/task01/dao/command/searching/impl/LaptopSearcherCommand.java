@@ -19,10 +19,8 @@ public class LaptopSearcherCommand implements SearchCommand {
         return XMLSearcher.searchLaptop(document, listKeys, listValues);
     }
 
-
     public List<Appliance> execute(Document document) {
         return XMLSearcher.searchLaptop(document, null, null);
     }
-
 
 }

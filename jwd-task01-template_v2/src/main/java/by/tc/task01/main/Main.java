@@ -2,6 +2,7 @@ package by.tc.task01.main;
 
 
 import by.tc.task01.entity.Appliance;
+import by.tc.task01.entity.Oven;
 import by.tc.task01.entity.criteria.Criteria;
 import by.tc.task01.entity.criteria.SearchCriteria;
 import by.tc.task01.service.ApplianceService;
@@ -20,7 +21,7 @@ public class Main {
 		ServiceFactory factory = ServiceFactory.getInstance();
 		ApplianceService service = factory.getApplianceService();
 
-//		Appliance oven = new Oven(100,100,100,100,100,100); // ADDING INFO TO XML
+//		Appliance oven = new Oven(100,1001,100,100,100,100); // ADDING INFO TO XML
 //		service.add(oven);
 
 		/////////////////////////////
@@ -32,16 +33,16 @@ public class Main {
 
 		PrintApplianceInfo.print(appliance);
 		System.out.println("////////////");
-		/////////////////////////////
-
-		criteria = new Criteria(SearchCriteria.Oven.class.getSimpleName()); // SEARCHING IN DEFINITE GROUP BY CRITERIA
-		criteria.add(SearchCriteria.Oven.CAPACITY.toString(), 33);
-		criteria.add(SearchCriteria.Oven.DEPTH.toString(), 60);
-
-		appliance = service.find(criteria);
-
-		PrintApplianceInfo.print(appliance);
-		System.out.println("////////////");
+//		/////////////////////////////
+//
+//		criteria = new Criteria(SearchCriteria.Oven.class.getSimpleName()); // SEARCHING IN DEFINITE GROUP BY CRITERIA
+//		criteria.add(SearchCriteria.Oven.CAPACITY.toString(), 33);
+//		criteria.add(SearchCriteria.Oven.DEPTH.toString(), 60);
+//
+//		appliance = service.find(criteria);
+//
+//		PrintApplianceInfo.print(appliance);
+//		System.out.println("////////////");
 
 		/////////////////////////////
 //

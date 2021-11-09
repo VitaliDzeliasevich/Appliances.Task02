@@ -19,7 +19,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
 
 public final class DAOUtil {
 
@@ -41,7 +40,7 @@ public final class DAOUtil {
         File fileXML = new File(XMLPath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
-        Document document = null;
+        Document document;
         try {
             dBuilder = dbFactory.newDocumentBuilder();
             document = dBuilder.parse(fileXML);

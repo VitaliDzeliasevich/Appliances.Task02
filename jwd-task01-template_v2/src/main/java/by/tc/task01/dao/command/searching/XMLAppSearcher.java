@@ -5,7 +5,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import java.util.ArrayList;
 import java.util.List;
 import static by.tc.task01.dao.util.DAOUtil.getTagValue;
@@ -25,7 +24,6 @@ public class XMLAppSearcher {
         Oven oven;
         List<Appliance> ovens = new ArrayList<>();
         NodeList nodeList = document.getElementsByTagName("oven");
-
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             if (nodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {

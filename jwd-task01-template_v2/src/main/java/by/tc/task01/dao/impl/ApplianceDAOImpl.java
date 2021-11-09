@@ -2,13 +2,13 @@ package by.tc.task01.dao.impl;
 
 import by.tc.task01.dao.ApplianceDAO;
 import by.tc.task01.dao.command.AppAddControl;
-import by.tc.task01.dao.command.AppGroupSearchControl;
-import by.tc.task01.dao.command.adding.*;
+import by.tc.task01.dao.command.AppSearchControl;
 import by.tc.task01.dao.command.searching.XMLAppSearcher;
 import by.tc.task01.dao.exception.DAOException;
 import by.tc.task01.dao.util.DAOUtil;
 import by.tc.task01.entity.*;
 import by.tc.task01.entity.criteria.Criteria;
+import by.tc.task01.entity.criteria.SearchCriteria;
 import org.w3c.dom.Document;
 
 import java.util.*;
@@ -19,8 +19,8 @@ public class ApplianceDAOImpl implements ApplianceDAO {
 
 	private static String filePath;
 	private static Document document;
-	private static final   String FILE_NAME = "App.xml";
-	private static final String ALL_GROUP_SEARCH = "AllGroupSearch";
+	private static final String FILE_NAME = "App.xml";
+	private static final String ALL_GROUP_SEARCH = SearchCriteria.ALL_GROUP_SEARCH;
 
 	public List<Appliance> find(Criteria criteria) throws DAOException{					//SEARCHING IN XML
 		filePath = DAOUtil.getXMLPath(FILE_NAME);										//GETTING FILEPATH BY FILENAME
@@ -45,29 +45,29 @@ public class ApplianceDAOImpl implements ApplianceDAO {
 	public void add(Appliance appliance) throws DAOException {
 		filePath = DAOUtil.getXMLPath(FILE_NAME);
 		document = getDocFromXML(filePath);
-		XMLAppAdder appAdder = XMLAppAdder.getInstance();
-		AppAddControl addControl = new AppAddControl(appAdder);
+		AppAddControl addControl = AppAddControl.getInstance();
 			addControl.add(appliance, document);
 		DAOUtil.updateXMLFile(document,filePath);
 	}
 
-	private List<Appliance> findByGroupAndCriteria(Document document, List<Object> listKeys, List<Object> listValues,
-										   String groupSearchName) {
+	private List<Appliance> findByGroupAndCriteria(Document document, List<Object> characteristicList, List<Object>
+																							characteristicValueList,
+										   													String groupSearchName) {
 		XMLAppSearcher searcherXML = XMLAppSearcher.getInstance();
-		AppGroupSearchControl searchControl = new AppGroupSearchControl(searcherXML);
-		return new ArrayList<>(searchControl.searchApp(document, listKeys, listValues, groupSearchName));
+		AppSearchControl searchControl = new AppSearchControl(searcherXML);
+		return new ArrayList<>(searchControl.searchApp(document, characteristicList, characteristicValueList, groupSearchName));
 	}
 
-	private List<Appliance> findByCriteria(Document document, List<Object> listKeys,
-											List<Object> listValues) {
+	private List<Appliance> findByCriteria(Document document, List<Object> characteristicList,
+											List<Object> characteristicValueList) {
 		XMLAppSearcher searcherXML = XMLAppSearcher.getInstance();
-		AppGroupSearchControl searchControl = new AppGroupSearchControl(searcherXML);
-		return new ArrayList<>(searchControl.searchApp(document, listKeys, listValues));
+		AppSearchControl searchControl = new AppSearchControl(searcherXML);
+		return new ArrayList<>(searchControl.searchApp(document, characteristicList, characteristicValueList));
 	}
 
 	private List<Appliance> findByGroup(Document document, String groupSearchName) {
 		XMLAppSearcher searcherXML = XMLAppSearcher.getInstance();
-		AppGroupSearchControl searchControl = new AppGroupSearchControl(searcherXML);
+		AppSearchControl searchControl = new AppSearchControl(searcherXML);
 		return new ArrayList<>(searchControl.searchApp(document,groupSearchName));
 	}
 }
